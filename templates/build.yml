@@ -10,6 +10,17 @@ steps:
       projects: "**/*.csproj"
 
   - task: DotNetCoreCLI@2
+    displayName: "Pack the project - ${{ parameters.buildConfiguration }}"
+    inputs:
+      command: "pack"
+      projects: "**/*.csproj"
+      arguments: "--no-build --configuration ${{ parameters.buildConfiguration }}"
+      versioningScheme: byPrereleaseNumber
+      majorVersion: "1"
+      minorVersion: "0"
+      patchVersion: "0"
+
+  - task: DotNetCoreCLI@2
     displayName: "Publish the project - ${{ parameters.buildConfiguration }}"
     inputs:
       command: "publish"
